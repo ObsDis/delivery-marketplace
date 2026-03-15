@@ -35,7 +35,9 @@ export async function updateSession(request: NextRequest) {
 
   // Public routes that don't require authentication
   const publicPaths = ["/", "/login", "/signup", "/forgot-password"];
-  const isPublicPath = publicPaths.includes(request.nextUrl.pathname);
+  const isPublicPath =
+    publicPaths.includes(request.nextUrl.pathname) ||
+    request.nextUrl.pathname.startsWith("/auth/");
 
   if (!user && !isPublicPath) {
     const url = request.nextUrl.clone();
